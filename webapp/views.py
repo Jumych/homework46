@@ -3,6 +3,11 @@ from webapp.models import Task, STATUS_CHOICES
 
 # Create your views here.
 def index_view(request):
+    if request.method == "POST":
+        task_id = request.GET.get('id')
+        task = Task.objects.get(id=task_id)
+        task.delete()
+
     tasks = Task.objects.all()
     return render(request, 'index.html', {'tasks': tasks})
 
