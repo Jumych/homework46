@@ -3,7 +3,7 @@ from webapp.models import Task
 
 # Register your models here.
 class TaskAdmin(admin.ModelAdmin):
-    list_display = ['id', 'title', 'status', 'deadline']
+    list_display = ['id', 'title', 'description', 'status', 'deadline']
     list_filter = ['status']
     search_fields = ['title']
     exclude = []

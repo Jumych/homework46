@@ -1,6 +1,5 @@
 from django.shortcuts import render
 from webapp.models import Task, STATUS_CHOICES
-
 # Create your views here.
 def index_view(request):
     if request.method == "POST":
@@ -18,6 +17,10 @@ def add_task(request):
         title = request.POST.get('title')
         status = request.POST.get('status')
         deadline = request.POST.get('deadline')
-        print(deadline)
-        new_task = Task.objects.create(title=title, status=status, deadline=deadline)
+        if not deadline:
+            deadline = None
+        new_task = Task.objects.create(title=title, status=status, deadline=deadline,)
         return render(request, 'task_view.html', {"task": new_task})
+
+
+
