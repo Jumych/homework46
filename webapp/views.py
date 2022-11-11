@@ -29,6 +29,20 @@ def add_task(request):
         new_task = Task.objects.create(title=title, status=status, deadline=deadline, description=description)
         return redirect('task_view', pk=new_task.pk)
 
+def task_update_view(request, pk):
+    task = get_object_or_404(Task, pk=pk)
+    if request.method == "GET":
+        return render(request, 'task_update.html', {'task': task, 'statuses': STATUS_CHOICES})
+    elif request.method == "POST":
+        task.title = request.POST.get('title')
+        task.status = request.POST.get('status')
+        task.deadline = request.POST.get('deadline')
+        task.description = request.POST.get('description')
+        if not task.deadline:
+            task.deadline = None
+        task.save()
+        return redirect('task_view', pk=task.pk)
+
 
 
 
